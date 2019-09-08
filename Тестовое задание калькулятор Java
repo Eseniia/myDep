@@ -1,0 +1,108 @@
+import java.util.Scanner;
+
+/**
+ * Калькулятор
+ * @author Есения Рыбникова
+ */
+public class calculator 
+			extends Exception {
+	
+	static Scanner scanner = new Scanner(System.in);
+
+	static String A_Symbol = "";
+	static String B_Symbol = "";
+
+
+	public static void main (String[] args){
+		int a = 0;
+		int b= 0;
+		String operation = "";
+		
+		System.out.println("Введите арифметическое выражение типа 3 + 2 с пробелами между каждым знаком."
+					+ "\nЧисла могут быть либо арабскими, либо римскими числами от 1 до 10."
+					+ "\nИспользуйте только знаки выражения +,-,*,/."); 
+			try {
+				a = inputNumber();
+		    	operation = inputOp();
+				b = inputNumber();
+				outputResult(a, b, operation);
+			}
+		    catch(Exception e) {
+		    	System.out.println("Ошибка в воде.\nЗапустите программу снова.");
+		    	System.exit(0);
+		    }	
+	}
+	
+	
+	public static int inputNumber() throws Exception{
+		int num = 0;
+		String[] romanAr = {"0", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
+		String[] arabAr = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};	
+		boolean check = true;
+
+		String number = scanner.next();
+		
+		for(int i = 0; i < 11; i++){
+	           if (number.equals(romanAr[i])) {
+	        	   num = i;
+	        	   A_Symbol = "one_choice"; 
+	            }
+	   }
+	   for(int j =0; j <11; j ++) {
+	           if(number.equals(arabAr[j])){
+	        	   num = j;
+	        	   B_Symbol = "one_choice";
+	           }
+		}	
+		
+	    if(num >10 || num <1){
+		    check = false;
+	   }
+	   
+		if(A_Symbol == B_Symbol) {
+			throw new Exception();	
+		}
+		
+		if(check == false) {
+			 throw new Exception();		        
+		}
+		
+		return num;
+	}
+	
+	
+	public static String inputOp() throws Exception{
+		String sign = scanner.next();
+		if (sign.equals("+") || sign.equals("-") || sign.equals("*") || sign.equals("/")) {
+		}
+		else {
+			throw new Exception();
+		}
+		return sign;
+	}
+	
+	
+	public static void outputResult(int a, int b, String operation) throws Exception {
+		float result = 0;
+		switch (operation) {
+		case "+":
+			result = a + b;
+			System.out.println("Результат равен: " + result);
+			break;
+		case "-":
+			result = a - b;
+			System.out.println("Результат равен: " + result);
+			break;
+		case "*":
+			result = a * b;
+			System.out.println("Результат равен: " + result);
+			break;
+		case "/":
+			result = a / b;
+			System.out.println("Результат равен: " + result);
+			break;
+		default:
+			throw new Exception();
+		}		
+	}	
+}
